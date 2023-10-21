@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>temperatureConverter</title>
+</head>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+        }
+        #container{
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #i, #o{
+            height: fit-content;
+            width: max-content;
+            border: 0.2em solid red;
+            border-radius: 1em;
+            padding: 0.2em;
+            margin: 7em;
+        }
+
+        :is(#i, #o) :is(input, select){
+            border: 0.1em solid black;
+            border-radius:10px;
+            outline: 0;
+            margin: 1em;
+            padding: 0.2em;
+            color:red;
+            font-size: 1.2em;
+        }
+
+        #i,#o input{
+            font-weight: bolder;
+        }
+
+        #i,#o:hover{
+            background-color:;
+        }
+
+    </style>
+<body>
+    <section id="container">
+        <section>
+            <section id="i">
+                <input type="number" id="input" step="0.2" onchange={calculate()} placeholder="INPUT"/>
+                <select id="from" onchange={calculate()}>
+                    <option>°F</option>
+                    <option selected>°C</option>
+                </select>
+            </section>
+            <section id="o">
+                <input id="output" disabled placeholder="0"/>
+                <select id="to" onchange={calculate()}>
+                    <option selected>°F</option>
+                    <option>°C</option>
+                </select>
+            </section>
+        </section>
+    </section>
+</body>
+<script>
+
+"use strict";
+const CtoF = (C) => {
+    return C*1.8 + 32;
+}
+
+const FtoC = (F) => {
+    return (F-32)/1.8;
+}
+
+function calculate(){
+    const val = +document.querySelector("#input").value,
+    inptel = document.querySelector("#from"), index1 = inptel.selectedIndex, unitfrom = inptel.options[index1].text,
+    outptel = document.querySelector("#to"), index2 = outptel.selectedIndex, unitto = outptel.options[index2].text;
+
+    if(unitfrom !== unitto)
+        return unitfrom === "°F" ? 
+            document.querySelector("#output").value = FtoC(val) : 
+            document.querySelector("#output").value = CtoF(val);
+    
+return null;
+}
+
+</script>
+</html>
